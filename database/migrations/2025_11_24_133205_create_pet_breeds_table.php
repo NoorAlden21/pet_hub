@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('pet_breeds', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pet_type_id')->nullable()->constrained('pet_types')->nullOnDelete();
+            $table->string('name_en')->unique();
+            $table->string('name_ar')->unique();
             $table->timestamps();
         });
     }
