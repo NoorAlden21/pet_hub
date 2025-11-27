@@ -20,7 +20,7 @@ class PetBreed extends Model
         };
     }
 
-    public function type()
+    public function petType()
     {
         return $this->belongsTo(PetType::class);
     }
