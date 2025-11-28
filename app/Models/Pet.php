@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pet extends Model
 {
-    protected $fillable = ['owner_id', 'breed_id', 'name', 'date_of_birth', 'gender', 'description', 'is_adoptable'];
+    protected $fillable = ['owner_id', 'pet_type_id', 'pet_breed_id',  'name', 'date_of_birth', 'gender', 'description', 'is_adoptable'];
 
     protected $casts = [
         'date_of_birth' => 'date',
@@ -19,8 +19,12 @@ class Pet extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function breed()
+    public function petType()
     {
-        return $this->belongsTo(PetBreed::class, 'breed_id');
+        return $this->belongsTo(PetType::class);
+    }
+    public function petBreed()
+    {
+        return $this->belongsTo(PetBreed::class);
     }
 }
