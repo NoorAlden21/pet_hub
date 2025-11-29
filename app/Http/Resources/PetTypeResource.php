@@ -19,6 +19,9 @@ class PetTypeResource extends JsonResource
             'name' => $this->name,
             'name_en' => $this->name_en,
             'name_ar' => $this->name_ar,
+            'breeds' => $this->whenLoaded('breeds', function () {
+                return PetBreedResource::collection($this->breeds);
+            }),
         ];
     }
 }

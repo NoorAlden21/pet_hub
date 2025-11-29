@@ -9,7 +9,7 @@ class PetTypeService
 {
     public function index(int $perPage = 15)
     {
-        return PetType::orderBy('id')->paginate($perPage);
+        return PetType::with(['breeds'])->orderBy('id')->paginate($perPage);
     }
 
     public function create(array $data)
