@@ -50,4 +50,17 @@ return [
         'deleted' => 'Pet deleted successfully.',
         'not_found' => 'Pet not found.',
     ],
+
+    /* 
+    |--------------------------------------------------------------------------
+    | Product Categories
+    |--------------------------------------------------------------------------
+    */
+
+    'product_category' => [
+        'created'   => 'Product category created successfully.',
+        'updated'   => 'Product category updated successfully.',
+        'deleted'   => 'Product category deleted successfully.',
+        'not_found' => 'Product category not found.',
+    ],
 ];
