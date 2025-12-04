@@ -14,12 +14,7 @@ class ProductCategoryService
 
     public function create(array $data)
     {
-        $productCategory = ProductCategory::create([
-            'name_en' => $data['name_en'],
-            'name_ar' => $data['name_ar']
-        ]);
-
-        return $productCategory;
+        return ProductCategory::create($data);
     }
 
     public function update(ProductCategory $productCategory, array $data)

@@ -14,12 +14,7 @@ class PetTypeService
 
     public function create(array $data)
     {
-        $petType = PetType::create([
-            'name_en' => $data['name_en'],
-            'name_ar' => $data['name_ar'],
-        ]);
-
-        return $petType;
+        return PetType::create($data);
     }
 
     public function update(PetType $petType, array $data)

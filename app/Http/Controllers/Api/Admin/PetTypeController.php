@@ -49,7 +49,6 @@ class PetTypeController extends Controller
         $this->petTypeService->delete($petType);
         return response()->json([
             'message' => __('messages.pet_type.deleted'),
-            'petType' => new PetTypeResource($petType)
         ], 200);
     }
 }

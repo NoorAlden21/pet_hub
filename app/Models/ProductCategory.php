@@ -19,4 +19,9 @@ class ProductCategory extends Model
             default => $this->name_en ?? $this->name_ar
         };
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

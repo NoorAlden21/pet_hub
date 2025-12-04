@@ -49,7 +49,6 @@ class ProductCategoryController extends Controller
         $this->productCategoryService->delete($productCategory);
         return response()->json([
             'message' => __('messages.product_category.deleted'),
-            'ProductCategory' => new ProductCategoryResource($productCategory)
         ], 200);
     }
 }

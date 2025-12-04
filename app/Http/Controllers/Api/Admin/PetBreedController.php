@@ -49,7 +49,6 @@ class PetBreedController extends Controller
         $this->petBreedService->delete($petBreed);
         return response()->json([
             'message' => __('messages.pet_breed.deleted'),
-            'breed' => new PetBreedResource($petBreed)
         ], 200);
     }
 }

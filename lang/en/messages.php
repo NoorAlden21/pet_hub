@@ -63,4 +63,17 @@ return [
         'deleted'   => 'Product category deleted successfully.',
         'not_found' => 'Product category not found.',
     ],
+
+    /* 
+    |--------------------------------------------------------------------------
+    | Product
+    |--------------------------------------------------------------------------
+    */
+
+    'product' => [
+        'created' => 'Product created successfully.',
+        'updated' => 'Product updated successfully.',
+        'deleted' => 'Product deleted successfully.',
+        'not_found' => 'Product not found.',
+    ],
 ];
