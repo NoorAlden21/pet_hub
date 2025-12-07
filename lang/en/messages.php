@@ -76,4 +76,31 @@ return [
         'deleted' => 'Product deleted successfully.',
         'not_found' => 'Product not found.',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cart
+    |--------------------------------------------------------------------------
+    */
+
+    'cart' => [
+        'created'   => 'Cart created successfully.',
+        'updated'   => 'Cart updated successfully.',
+        'deleted'   => 'Cart deleted successfully.',
+        'not_found' => 'Cart not found.',
+        'cleared'   => 'Cart cleared successfully',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cart Items
+    |--------------------------------------------------------------------------
+    */
+
+    'cart_item' => [
+        'created'   => 'Item added to cart successfully.',
+        'updated'   => 'Cart item updated successfully.',
+        'deleted'   => 'Cart item deleted successfully.',
+        'not_found' => 'Cart item not found.',
+    ],
 ];
