@@ -14,8 +14,7 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::firstOrCreate(['name' => 'admin']);
-        Role::firstOrCreate(['name' => 'staff']);
-        Role::firstOrCreate(['name' => 'client']);
+        Role::firstOrCreate(['name' => 'user']);
 
 
         $admin = User::create([
@@ -27,6 +26,15 @@ class RoleSeeder extends Seeder
         $admin->assignRole('admin');
         $token = $admin->createToken('api')->plainTextToken;
 
+        $user = User::create([
+            'name' => 'user',
+            'email' => "user@user.com",
+            'password' => Hash::make('password')
+        ]);
+
+        $userToken = $user->createToken('api')->plainTextToken;
+
         Log::channel('admin_tokens')->info("Admin ID: {$admin->id}, Token: {$token}");
+        Log::channel('user_tokens')->info("User ID: {$user->id}, Token: {$userToken}");
     }
 }
