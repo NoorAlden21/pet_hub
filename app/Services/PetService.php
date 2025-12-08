@@ -3,19 +3,38 @@
 namespace App\Services;
 
 use App\Models\Pet;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class PetService
 {
-    public function index(int $perPage = 15)
+    public function indexFor(User $user, int $perPage = 15)
     {
-        return Pet::with(['petType', 'petBreed', 'owner'])->orderBy('id')->paginate($perPage);
+        $query = Pet::query();
+        if ($user->hasRole('admin')) {
+            return $query->with(['petType', 'petBreed', 'owner'])->orderBy('id')->paginate($perPage);
+        }
+
+        return $query->adoptable()->paginate($perPage);
     }
 
-    public function create(array $data)
+    public function myPets(User $user, int $perPage = 15)
     {
+        return Pet::ownedBy($user->id)->paginate($perPage);
+    }
+
+    public function create(User $user, array $data)
+    {
+
+        if ($user->hasRole('admin') && isset($data['owner_id'])) {
+            $ownerId = $data['owner_id'];
+        } else {
+            $ownerId = $user->id;
+            $data['is_adoptable'] = false;
+        }
+
         $pet = Pet::create([
-            'owner_id' => $data['owner_id'],
+            'owner_id'     => $ownerId,
             'pet_type_id' => $data['pet_type_id'],
             'pet_breed_id' => $data['pet_breed_id'],
             'name' => $data['name'],

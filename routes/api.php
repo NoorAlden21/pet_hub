@@ -30,6 +30,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/email/resend-verification', [AuthController::class, 'resendVerificationEmail']);
 
+    Route::get('/pets', [PetController::class, 'index']);
+    Route::get('/pets/{pet}', [PetController::class, 'show']);
+
+    Route::prefix('/my')->group(function () {
+        Route::get('/pets', [PetController::class, 'myPets']);
+        Route::post('/pets', [PetController::class, 'store']);
+        Route::patch('/pets/{pet}', [PetController::class, 'update'])
+            ->middleware('owner:pet,owner_id');
+        Route::delete('/pets/{pet}', [PetController::class, 'destroy'])
+            ->middleware('owner:pet,owner_id');
+    });
+
+
+    //shop:
+
+    //only active products
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/{product}', [ProductController::class, 'show']);
+
     Route::prefix('/cart')->group(function () {
         Route::get('', [CartController::class, 'show']);
         Route::post('/items', [CartController::class, 'storeItem']);

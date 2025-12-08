@@ -19,16 +19,31 @@ class PetController extends Controller
 
     public function index(Request $request)
     {
+        $user = $request->user();
+
         $perPage = $request->integer('per_page', 15);
 
-        $pets = $this->petService->index($perPage);
+        $pets = $this->petService->indexFor($user, $perPage);
+
+        return PetResource::collection($pets);
+    }
+
+    public function myPets(Request $request)
+    {
+        $user = $request->user();
+
+        $perPage = $request->integer('per_page', 15);
+
+        $pets = $this->petService->myPets($user, $perPage);
 
         return PetResource::collection($pets);
     }
 
     public function store(PetStoreRequest $request)
     {
-        $pet = $this->petService->create($request->validated());
+        $user = $request->user();
+
+        $pet = $this->petService->create($user, $request->validated());
         return response()->json([
             'message' => __('messages.pet.created'),
             'pet' => new PetResource($pet),

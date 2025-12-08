@@ -19,9 +19,11 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        $user = $request->user();
+
         $perPage = $request->integer('per_page', 15);
 
-        $product = $this->productService->index($perPage);
+        $product = $this->productService->indexFor($user, $perPage);
 
         return ProductResource::collection($product);
     }

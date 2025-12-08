@@ -3,13 +3,20 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
-    public function index(int $perPage = 15)
+    public function indexFor(User $user)
     {
-        return Product::with(['productCategory'])->orderBy('id')->paginate($perPage);
+        $query = Product::query();
+
+        if ($user->hasRole('admin')) {
+            return $query->paginate(15);
+        }
+
+        return $query->active()->paginate(15);
     }
 
     public function create(array $data)

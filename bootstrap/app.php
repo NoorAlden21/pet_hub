@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureOwner;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use App\Http\Middleware\SetLocale;
@@ -22,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role'          => RoleMiddleware::class,
             'permission'    => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
+            'owner' => EnsureOwner::class,
         ]);
 
         $middleware->appendToGroup('api', [

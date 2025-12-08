@@ -27,4 +27,17 @@ class Pet extends Model
     {
         return $this->belongsTo(PetBreed::class);
     }
+
+
+    //scopes
+
+    public function scopeAdoptable($query)
+    {
+        return $query->where('is_adoptable', true);
+    }
+
+    public function scopeOwnedBy($query, int $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
 }
