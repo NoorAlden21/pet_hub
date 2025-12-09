@@ -103,4 +103,21 @@ return [
         'deleted'   => 'Cart item deleted successfully.',
         'not_found' => 'Cart item not found.',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Orders
+    |--------------------------------------------------------------------------
+    */
+
+    'order' => [
+        'created'           => 'Order created successfully.',
+        'updated'           => 'Order updated successfully.',
+        'deleted'           => 'Order deleted successfully.',
+        'not_found'         => 'Order not found.',
+        'status_updated'    => 'Order status updated successfully.',
+        'cancelled'         => 'Order cancelled successfully.',
+        'cannot_cancel'     => 'Only pending orders can be cancelled.',
+        'insufficient_stock' => 'The requested quantity is not available in stock.',
+    ],
 ];

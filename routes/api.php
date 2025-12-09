@@ -6,7 +6,8 @@ use App\Http\Controllers\Api\Admin\PetTypeController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,11 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::apiResource('pets', PetController::class);
     Route::apiResource('product-categories', ProductCategoryController::class);
     Route::apiResource('products', ProductController::class);
+
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::get('orders/{order}', [OrderController::class, 'show']);
+    Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus']);
+    Route::delete('orders/{order}', [OrderController::class, 'destroy']);
 });
 
 
@@ -34,12 +40,24 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/pets/{pet}', [PetController::class, 'show']);
 
     Route::prefix('/my')->group(function () {
+        //my pets
         Route::get('/pets', [PetController::class, 'myPets']);
         Route::post('/pets', [PetController::class, 'store']);
         Route::patch('/pets/{pet}', [PetController::class, 'update'])
             ->middleware('owner:pet,owner_id');
         Route::delete('/pets/{pet}', [PetController::class, 'destroy'])
             ->middleware('owner:pet,owner_id');
+
+        //my orders
+
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::post('/orders', [OrderController::class, 'store']);
+
+        Route::get('/orders/{order}', [OrderController::class, 'show'])
+            ->middleware('owner:order,user_id');
+
+        Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])
+            ->middleware('owner:order,user_id');
     });
 
 
@@ -52,7 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/cart')->group(function () {
         Route::get('', [CartController::class, 'show']);
         Route::post('/items', [CartController::class, 'storeItem']);
-        Route::put('/items/{cartItemId}', [CartController::class, 'updateItem']);
+        Route::patch('/items/{cartItemId}', [CartController::class, 'updateItem']);
         Route::delete('/items/{cartItemId}', [CartController::class, 'destroyItem']);
         Route::delete('', [CartController::class, 'clear']);
     });

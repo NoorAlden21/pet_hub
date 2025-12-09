@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CartItem\CartItemStoreRequest;
 use App\Http\Requests\Admin\CartItem\CartItemUpdateRequest;
 use App\Http\Resources\CartResource;
