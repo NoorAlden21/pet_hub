@@ -32,17 +32,17 @@ class AuthService
 
             $rawCode = $this->generateCode();
 
-            VerificationCode::create([
-                'user_id'    => $user->id,
-                'type'       => 'email_verification',
-                'code'       => Hash::make($rawCode),
-                'expires_at' => now()->addMinutes(60),
-            ]);
+            // VerificationCode::create([
+            //     'user_id'    => $user->id,
+            //     'type'       => 'email_verification',
+            //     'code'       => Hash::make($rawCode),
+            //     'expires_at' => now()->addMinutes(60),
+            // ]);
 
             return [$user, $rawCode];
         });
 
-        $user->notify(new VerifyEmailCodeNotification($rawCode));
+        //$user->notify(new VerifyEmailCodeNotification($rawCode));
 
         return $user;
     }
@@ -58,11 +58,11 @@ class AuthService
             ]);
         }
 
-        if ($user->hasRole('user') && !$user->email_verified_at) {
-            throw ValidationException::withMessages([
-                'email' => [__('auth.email_not_verified')],
-            ]);
-        }
+        // if ($user->hasRole('user') && !$user->email_verified_at) {
+        //     throw ValidationException::withMessages([
+        //         'email' => [__('auth.email_not_verified')],
+        //     ]);
+        // }
 
         $token = $user->createToken('auth')->plainTextToken;
 

@@ -13,7 +13,6 @@ class Pet extends Model
         'is_adoptable'  => 'boolean',
     ];
 
-
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
