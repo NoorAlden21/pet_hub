@@ -10,7 +10,7 @@ class ProductService
 {
     public function indexFor(User $user)
     {
-        $query = Product::query();
+        $query = Product::query()->with(['productCategory']);
 
         if ($user->hasRole('admin')) {
             return $query->paginate(15);
