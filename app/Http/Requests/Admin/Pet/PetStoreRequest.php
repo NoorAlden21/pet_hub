@@ -30,6 +30,9 @@ class PetStoreRequest extends FormRequest
             'gender' => ['required', 'in:male,female'],
             'description' => ['string'],
             'is_adoptable' => ['nullable', 'boolean'],
+
+            'images' => ['sometimes', 'array', 'max:10'],
+            'images.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ];
     }
 }

@@ -27,6 +27,17 @@ class Pet extends Model
         return $this->belongsTo(PetBreed::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(PetImage::class)->orderBy('id');
+    }
+
+    public function coverImage()
+    {
+        // the first inserted image (smallest id) for this pet
+        return $this->hasOne(PetImage::class)->ofMany('id', 'min');
+    }
+
 
     //scopes
 

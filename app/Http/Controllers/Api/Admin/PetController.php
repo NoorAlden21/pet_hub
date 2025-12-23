@@ -43,7 +43,7 @@ class PetController extends Controller
     {
         $user = $request->user();
 
-        $pet = $this->petService->create($user, $request->validated());
+        $pet = $this->petService->create($user, $request->validated(), $request->file('images', []));
         return response()->json([
             'message' => __('messages.pet.created'),
             'pet' => new PetResource($pet),

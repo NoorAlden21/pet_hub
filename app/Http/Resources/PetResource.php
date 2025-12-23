@@ -33,6 +33,17 @@ class PetResource extends JsonResource
             'date_of_birth' => $this->date_of_birth?->toDateString(),
             'description' => $this->description,
             'is_adoptable' => $this->is_adoptable,
+
+            'cover_image' => $this->whenLoaded('coverImage', fn () => $this->coverImage?->url),
+
+            'images' => $this->whenLoaded(
+                'images',
+                fn () =>
+                $this->images->map(fn ($img) => [
+                    'id' => $img->id,
+                    'url' => $img->url,
+                ])
+            ),
         ];
     }
 }

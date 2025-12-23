@@ -30,6 +30,9 @@ class PetUpdateRequest extends FormRequest
             'gender' => ['sometimes', 'in:male,female,unknown'],
             'description' => ['sometimes', 'string'],
             'is_adoptable' => ['sometimes', 'boolean'],
+
+            'images' => ['sometimes', 'array', 'max:10'],
+            'images.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ];
     }
 }
