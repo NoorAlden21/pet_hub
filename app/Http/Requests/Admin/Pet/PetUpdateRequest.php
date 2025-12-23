@@ -27,7 +27,7 @@ class PetUpdateRequest extends FormRequest
             'pet_breed_id' => ['sometimes', 'exists:pet_breeds,id'],
             'name' => ['sometimes', 'string', 'max:255'],
             'date_of_birth' => ['sometimes', 'date'],
-            'gender' => ['sometimes', 'in:male, female, unknown'],
+            'gender' => ['sometimes', 'in:male,female,unknown'],
             'description' => ['sometimes', 'string'],
             'is_adoptable' => ['sometimes', 'boolean'],
         ];
