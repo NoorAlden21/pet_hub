@@ -19,6 +19,15 @@ class ProductService
         return $query->active()->paginate(15);
     }
 
+    public function publicIndex(int $perPage = 15)
+    {
+        return Product::query()
+            ->with(['productCategory'])
+            ->active()
+            ->orderBy('id')
+            ->paginate($perPage);
+    }
+
     public function create(array $data)
     {
         return Product::create($data)->load(['productCategory']);

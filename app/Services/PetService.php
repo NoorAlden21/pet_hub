@@ -18,6 +18,16 @@ class PetService
         return $query->adoptable()->paginate($perPage);
     }
 
+    public function publicIndex(int $perPage = 15)
+    {
+        return Pet::query()
+            ->adoptable()
+            ->with(['petType', 'petBreed'])
+            ->orderBy('id')
+            ->paginate($perPage);
+    }
+
+
     public function myPets(User $user, int $perPage = 15)
     {
         return Pet::ownedBy($user->id)->paginate($perPage);

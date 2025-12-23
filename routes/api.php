@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PublicPetController;
+use App\Http\Controllers\Api\PublicProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +19,14 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
+
+Route::get('/pets', [PublicPetController::class, 'index']);
+Route::get('/pets/{pet}', [PublicPetController::class, 'show']);
+
+
+// products
+Route::get('/products', [PublicProductController::class, 'index']);
+Route::get('/products/{product}', [PublicProductController::class, 'show']);
 
 Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(function () {
     Route::apiResource('pet-types', PetTypeController::class);
@@ -31,13 +41,9 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::delete('orders/{order}', [OrderController::class, 'destroy']);
 });
 
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/email/resend-verification', [AuthController::class, 'resendVerificationEmail']);
-
-    Route::get('/pets', [PetController::class, 'index']);
-    Route::get('/pets/{pet}', [PetController::class, 'show']);
 
     Route::prefix('/my')->group(function () {
         //my pets
@@ -62,11 +68,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //shop:
-
-    //only active products
-    Route::get('/products', [ProductController::class, 'index']);
-    Route::get('/products/{product}', [ProductController::class, 'show']);
-
     Route::prefix('/cart')->group(function () {
         Route::get('', [CartController::class, 'show']);
         Route::post('/items', [CartController::class, 'storeItem']);
