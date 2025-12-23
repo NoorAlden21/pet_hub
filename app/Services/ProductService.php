@@ -24,6 +24,11 @@ class ProductService
         return Product::create($data)->load(['productCategory']);
     }
 
+    public function getDetails(Product $product)
+    {
+        return $product->load(['productCategory']);
+    }
+
     public function update(Product $product, array $data)
     {
         $product->update($data);

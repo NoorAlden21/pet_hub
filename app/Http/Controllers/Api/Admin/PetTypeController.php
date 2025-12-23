@@ -35,6 +35,12 @@ class PetTypeController extends Controller
         ], 201);
     }
 
+    public function show(PetType $petType)
+    {
+        $petType = $this->petTypeService->getDetails($petType);
+        return new PetTypeResource($petType);
+    }
+
     public function update(PetTypeUpdateRequest $request, PetType $petType)
     {
         $petType = $this->petTypeService->update($petType, $request->validated());

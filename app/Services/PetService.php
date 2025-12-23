@@ -47,6 +47,11 @@ class PetService
         return $pet->load(['petType', 'petBreed', 'owner']);
     }
 
+    public function getDetails(Pet $pet)
+    {
+        return $pet->load(['petType', 'petBreed', 'owner']);
+    }
+
     public function update(Pet $pet, array $data)
     {
         $pet->update($data);

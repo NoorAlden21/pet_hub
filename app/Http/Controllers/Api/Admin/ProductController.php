@@ -37,6 +37,12 @@ class ProductController extends Controller
         ], 201);
     }
 
+    public function show(Product $product)
+    {
+        $product = $this->productService->getDetails($product);
+        return new ProductResource($product);
+    }
+
     public function update(ProductUpdateRequest $request, Product $product)
     {
         $product = $this->productService->update($product, $request->validated());

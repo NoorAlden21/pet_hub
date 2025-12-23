@@ -35,6 +35,12 @@ class PetBreedController extends Controller
         ], 201);
     }
 
+    public function show(PetBreed $petBreed)
+    {
+        $petBreed = $this->petBreedService->getDetails($petBreed);
+        return new PetBreedResource($petBreed);
+    }
+
     public function update(PetBreedUpdateRequest $request, PetBreed $petBreed)
     {
         $petBreed = $this->petBreedService->update($petBreed, $request->validated());

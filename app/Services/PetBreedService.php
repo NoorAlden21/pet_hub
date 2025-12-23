@@ -23,6 +23,11 @@ class PetBreedService
         return $petBreed->load('petType');
     }
 
+    public function getDetails(PetBreed $petBreed)
+    {
+        return $petBreed->load('petType');
+    }
+
     public function update(PetBreed $petBreed, array $data)
     {
         $petBreed->update($data);

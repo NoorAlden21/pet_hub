@@ -17,6 +17,11 @@ class PetTypeService
         return PetType::create($data);
     }
 
+    public function getDetails(PetType $petType)
+    {
+        return $petType->load(['breeds']);
+    }
+
     public function update(PetType $petType, array $data)
     {
         $petType->update($data);

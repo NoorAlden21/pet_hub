@@ -50,6 +50,12 @@ class PetController extends Controller
         ], 201);
     }
 
+    public function show(Pet $pet)
+    {
+        $pet = $this->petService->getDetails($pet);
+        return new PetResource($pet);
+    }
+
     public function update(PetUpdateRequest $request, Pet $pet)
     {
         $pet = $this->petService->update($pet, $request->validated());
