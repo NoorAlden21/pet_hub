@@ -28,6 +28,10 @@ Route::get('/pets/{pet}', [PublicPetController::class, 'show']);
 Route::get('/products', [PublicProductController::class, 'index']);
 Route::get('/products/{product}', [PublicProductController::class, 'show']);
 
+Route::get('/pet-types', [PetTypeController::class, 'index']);
+Route::get('/pet-breeds', [PetBreedController::class, 'index']);
+Route::get('/product-categories', [ProductCategoryController::class, 'index']);
+
 Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(function () {
     Route::apiResource('pet-types', PetTypeController::class);
     Route::apiResource('pet-breeds', PetBreedController::class);
