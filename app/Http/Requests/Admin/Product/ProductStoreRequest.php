@@ -24,6 +24,7 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'product_category_id' => ['required', 'exists:product_categories,id'],
+            'pet_type_id' => ['required', 'exists:pet_types,id'],
             'name_en' => [
                 'required',
                 'string',

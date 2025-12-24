@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['product_category_id', 'name_en', 'name_ar', 'description', 'price', 'stock_quantity', 'is_active'];
+    protected $fillable = ['product_category_id', 'pet_type_id', 'name_en', 'name_ar', 'description', 'price', 'stock_quantity', 'is_active'];
     protected $appends = ['name'];
 
     protected $casts = [
@@ -29,6 +29,11 @@ class Product extends Model
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function petType()
+    {
+        return $this->belongsTo(PetType::class);
     }
 
     public function images()

@@ -34,6 +34,7 @@ class RoleSeeder extends Seeder
 
         $userToken = $user->createToken('api')->plainTextToken;
 
+        Log::channel('tokens')->info("===================== NEW TOKENS =====================");
         Log::channel('tokens')->info("Admin ID: {$admin->id}, Token: {$token}");
         Log::channel('tokens')->info("User ID: {$user->id}, Token: {$userToken}");
     }

@@ -34,16 +34,22 @@ class PetResource extends JsonResource
             'description' => $this->description,
             'is_adoptable' => $this->is_adoptable,
 
-            'cover_image' => $this->whenLoaded('coverImage', fn () => $this->coverImage?->url),
+            'cover_image' => $this->whenLoaded('coverImage', function () use ($request) {
+                return $this->coverImage?->path
+                    ? $request->getSchemeAndHttpHost() . '/storage/' . ltrim($this->coverImage->path, '/')
+                    : null;
+            }),
 
-            'images' => $this->whenLoaded(
-                'images',
-                fn () =>
-                $this->images->map(fn ($img) => [
-                    'id' => $img->id,
-                    'url' => $img->url,
-                ])
-            ),
+            'images' => $this->whenLoaded('images', function () use ($request) {
+                return $this->images->map(function ($img) use ($request) {
+                    return [
+                        'id' => $img->id,
+                        'url' => $img->path
+                            ? $request->getSchemeAndHttpHost() . '/storage/' . ltrim($img->path, '/')
+                            : null,
+                    ];
+                });
+            }),
         ];
     }
 }

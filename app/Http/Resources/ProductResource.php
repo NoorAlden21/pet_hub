@@ -24,16 +24,24 @@ class ProductResource extends JsonResource
             'stock_quantity' => $this->stock_quantity,
             'is_active' => $this->is_active,
             'category' => new ProductCategoryResource($this->whenLoaded('productCategory')),
+            'pet_type' => new PetTypeResource($this->whenLoaded('petType')),
 
-            'cover_image' => $this->whenLoaded('coverImage', fn () => $this->coverImage?->url),
-            'images' => $this->whenLoaded(
-                'images',
-                fn () =>
-                $this->images->map(fn ($img) => [
-                    'id' => $img->id,
-                    'url' => $img->url,
-                ])
-            ),
+            'cover_image' => $this->whenLoaded('coverImage', function () use ($request) {
+                return $this->coverImage?->path
+                    ? $request->getSchemeAndHttpHost() . '/storage/' . ltrim($this->coverImage->path, '/')
+                    : null;
+            }),
+
+            'images' => $this->whenLoaded('images', function () use ($request) {
+                return $this->images->map(function ($img) use ($request) {
+                    return [
+                        'id' => $img->id,
+                        'url' => $img->path
+                            ? $request->getSchemeAndHttpHost() . '/storage/' . ltrim($img->path, '/')
+                            : null,
+                    ];
+                });
+            }),
         ];
     }
 }

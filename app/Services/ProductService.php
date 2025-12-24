@@ -11,7 +11,7 @@ class ProductService
 {
     public function indexFor(User $user)
     {
-        $query = Product::query()->with(['productCategory', 'coverImage']);
+        $query = Product::query()->with(['productCategory', 'petType', 'coverImage']);
 
         if ($user->hasRole('admin')) {
             return $query->paginate(15);
@@ -23,7 +23,7 @@ class ProductService
     public function publicIndex(int $perPage = 15)
     {
         return Product::query()
-            ->with(['productCategory', 'coverImage'])
+            ->with(['productCategory', 'petType', 'coverImage'])
             ->active()
             ->orderBy('id')
             ->paginate($perPage);
@@ -35,7 +35,7 @@ class ProductService
             unset($data['images']);
             $product = Product::create($data);
             $this->storeImages($product, $images);
-            return $product->load(['productCategory', 'coverImage', 'images']);
+            return $product->load(['productCategory', 'petType', 'coverImage', 'images']);
         });
     }
 
@@ -49,7 +49,7 @@ class ProductService
 
             $this->storeImages($product, $images);
 
-            return $product->load(['productCategory', 'coverImage', 'images']);
+            return $product->load(['productCategory', 'petType', 'coverImage', 'images']);
         });
     }
 
@@ -66,10 +66,9 @@ class ProductService
         }
     }
 
-
     public function getDetails(Product $product)
     {
-        return $product->load(['productCategory', 'coverImage', 'images']);
+        return $product->load(['productCategory', 'petType', 'coverImage', 'images']);
     }
 
     public function delete(Product $product)

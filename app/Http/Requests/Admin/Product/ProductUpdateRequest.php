@@ -29,6 +29,7 @@ class ProductUpdateRequest extends FormRequest
 
         return [
             'product_category_id' => ['sometimes', 'exists:product_categories,id'],
+            'pet_type_id' => ['sometimes', 'exists:pet_types,id'],
             'name_en' => [
                 'sometimes',
                 'string',
