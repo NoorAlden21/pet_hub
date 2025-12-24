@@ -18,8 +18,8 @@ class OrderResource extends JsonResource
                 ];
             }),
             'total'          => (float) $this->total,
-            'status'         => $this->status,
-            'payment_status' => $this->payment_status,
+            'status'         => __('statuses.' . $this->status),
+            'payment_status' => __('statuses.' . $this->payment_status),
 
             'items'          => OrderItemResource::collection(
                 $this->whenLoaded('items')

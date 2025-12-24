@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Admin\PetController;
 use App\Http\Controllers\Api\Admin\PetTypeController;
 use App\Http\Controllers\Api\Admin\ProductCategoryController;
 use App\Http\Controllers\Api\Admin\ProductController;
+use App\Http\Controllers\Api\AdoptionApplicationController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
@@ -38,6 +39,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::apiResource('pets', PetController::class);
     Route::apiResource('product-categories', ProductCategoryController::class);
     Route::apiResource('products', ProductController::class);
+    Route::apiResource('adoption-applications', AdoptionApplicationController::class);
 
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/{order}', [OrderController::class, 'show']);
@@ -59,7 +61,6 @@ Route::middleware('auth:sanctum')->group(function () {
             ->middleware('owner:pet,owner_id');
 
         //my orders
-
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/orders', [OrderController::class, 'store']);
 
@@ -68,6 +69,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])
             ->middleware('owner:order,user_id');
+
+        //my adoption applications
+        Route::get('/adoption-applications', [AdoptionApplicationController::class, 'index']);
+        Route::post('/adoption-applications', [AdoptionApplicationController::class, 'store']);
+
+        Route::get('/adoption-applications/{adoptionApplication}', [AdoptionApplicationController::class, 'show'])
+            ->middleware('owner:adoptionApplication,user_id');
+
+        Route::delete('/adoption-applications/{adoptionApplication}', [AdoptionApplicationController::class, 'destroy'])
+            ->middleware('owner:adoptionApplication,user_id');
     });
 
 
