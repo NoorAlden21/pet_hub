@@ -30,7 +30,7 @@ class ProductController extends Controller
 
     public function store(ProductStoreRequest $request)
     {
-        $product = $this->productService->create($request->validated());
+        $product = $this->productService->create($request->validated(), $request->file('images', []));
         return response()->json([
             'message' => __('messages.product.created'),
             'product' => new ProductResource($product),
@@ -45,7 +45,7 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $product = $this->productService->update($product, $request->validated());
+        $product = $this->productService->update($product, $request->validated(), $request->file('images', []));
         return response()->json([
             'message' => __('messages.product.updated'),
             'product' => new ProductResource($product)

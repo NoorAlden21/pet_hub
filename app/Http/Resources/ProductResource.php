@@ -23,7 +23,17 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'stock_quantity' => $this->stock_quantity,
             'is_active' => $this->is_active,
-            'category' => new ProductCategoryResource($this->whenLoaded('productCategory'))
+            'category' => new ProductCategoryResource($this->whenLoaded('productCategory')),
+
+            'cover_image' => $this->whenLoaded('coverImage', fn () => $this->coverImage?->url),
+            'images' => $this->whenLoaded(
+                'images',
+                fn () =>
+                $this->images->map(fn ($img) => [
+                    'id' => $img->id,
+                    'url' => $img->url,
+                ])
+            ),
         ];
     }
 }

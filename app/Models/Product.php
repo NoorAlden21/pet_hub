@@ -31,6 +31,16 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('id');
+    }
+
+    public function coverImage()
+    {
+        return $this->hasOne(ProductImage::class)->ofMany('id', 'min');
+    }
+
     //scopes
 
     public function scopeActive($query)

@@ -50,6 +50,9 @@ class ProductUpdateRequest extends FormRequest
             'price' => ['sometimes', 'numeric', 'gte:0'],
             'stock_quantity' => ['sometimes', 'integer', 'gte:0'],
             'is_active' => ['sometimes', 'boolean'],
+
+            'images' => ['sometimes', 'array', 'max:10'],
+            'images.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ];
     }
 }
