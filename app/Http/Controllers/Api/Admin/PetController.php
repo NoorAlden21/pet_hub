@@ -58,7 +58,7 @@ class PetController extends Controller
 
     public function update(PetUpdateRequest $request, Pet $pet)
     {
-        $pet = $this->petService->update($pet, $request->validated());
+        $pet = $this->petService->update($pet, $request->validated(), $request->file('images', []));
         return response()->json([
             'message' => __('messages.pet.updated'),
             'pet' => new PetResource($pet)
