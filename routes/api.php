@@ -39,7 +39,9 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::apiResource('pets', PetController::class);
     Route::apiResource('product-categories', ProductCategoryController::class);
     Route::apiResource('products', ProductController::class);
+
     Route::apiResource('adoption-applications', AdoptionApplicationController::class);
+    Route::get('adoption-applications/pet/{petId}', [AdoptionApplicationController::class, 'petApplications']);
 
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/{order}', [OrderController::class, 'show']);
