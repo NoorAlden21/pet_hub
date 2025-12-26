@@ -21,6 +21,11 @@ class OrderItemResource extends JsonResource
                     'id'    => $this->product->id,
                     'name'  => $this->product->name,
                     'price' => (float) $this->product->price,
+                    'cover_image' => $this->product->relationLoaded('coverImage')
+                        ? ($this->product->coverImage?->path
+                            ? asset('storage/' . ltrim($this->product->coverImage->path, '/'))
+                            : null)
+                        : null,
                 ];
             }),
 

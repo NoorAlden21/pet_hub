@@ -16,7 +16,7 @@ class CartService
         return Cart::firstOrCreate(
             ['user_id' => $user->id],
             ['total' => 0]
-        )->load('items.product');
+        )->load('items.product.coverImage');
     }
 
     public function addProduct(User $user, int $productId, int $quantity = 1)

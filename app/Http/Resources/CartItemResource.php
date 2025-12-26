@@ -26,6 +26,11 @@ class CartItemResource extends JsonResource
                     'name'        => $this->product->name,
                     'price'       => $this->product->price,
                     'description' => $this->product->description,
+                    'cover_image' => $this->product->relationLoaded('coverImage')
+                        ? ($this->product->coverImage?->path
+                            ? asset('storage/' . ltrim($this->product->coverImage->path, '/'))
+                            : null)
+                        : null,
                 ];
             }),
 

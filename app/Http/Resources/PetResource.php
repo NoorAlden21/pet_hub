@@ -50,6 +50,10 @@ class PetResource extends JsonResource
                     ];
                 });
             }),
+
+            'adoption_applications' => AdoptionApplicationResource::collection(
+                $this->whenLoaded('adoptionApplication')
+            ),
         ];
     }
 }

@@ -38,6 +38,11 @@ class Pet extends Model
         return $this->hasOne(PetImage::class)->ofMany('id', 'min');
     }
 
+    public function adoptionApplication()
+    {
+        return $this->hasMany(AdoptionApplication::class);
+    }
+
 
     //scopes
 

@@ -10,10 +10,10 @@ class AdoptionApplicationService
     public function getApplicationsForUser($user)
     {
         if ($user->hasRole('admin')) {
-            return AdoptionApplication::with(['pet', 'user'])->get();
+            return AdoptionApplication::with(['pet.coverImage', 'user'])->get();
         }
 
-        return AdoptionApplication::with(['pet'])->where('user_id', $user->id)->get();
+        return AdoptionApplication::with(['pet.coverImage'])->where('user_id', $user->id)->get();
     }
 
     public function getApplicationsForPet($petId)
@@ -42,7 +42,7 @@ class AdoptionApplicationService
 
     public function showDetails($applicationId)
     {
-        return AdoptionApplication::with(['pet', 'user'])->findOrFail($applicationId);
+        return AdoptionApplication::with(['pet.coverImage', 'user'])->findOrFail($applicationId);
     }
 
     public function updateApplication($applicationId, $data)

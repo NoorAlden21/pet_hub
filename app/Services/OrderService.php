@@ -15,7 +15,7 @@ class OrderService
 {
     public function indexFor(User $user, int $perPage = 15)
     {
-        $query = Order::with(['items.product', 'user'])
+        $query = Order::with(['items.product.coverImage', 'user'])
             ->orderByDesc('created_at');
 
         if (!$user->hasRole('admin')) {
@@ -27,7 +27,7 @@ class OrderService
 
     public function show(Order $order)
     {
-        return $order->load(['items.product', 'user']);
+        return $order->load(['items.product.coverImage', 'user']);
     }
 
     public function placeOrderFromCart(User $user)

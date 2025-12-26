@@ -91,7 +91,7 @@ class PetService
 
     public function getDetails(Pet $pet)
     {
-        return $pet->load(['petType', 'petBreed', 'owner', 'coverImage', 'images']);
+        return $pet->load(['petType', 'petBreed', 'coverImage', 'images', 'adoptionApplication']);
     }
 
     public function delete(Pet $pet)
