@@ -13,7 +13,7 @@ class AdoptionApplicationService
             return AdoptionApplication::with(['pet', 'user'])->get();
         }
 
-        return AdoptionApplication::with(['pet'])->where('user_id', $user->id)->first();
+        return AdoptionApplication::with(['pet'])->where('user_id', $user->id)->get();
     }
 
     public function getApplicationsForPet($petId)
