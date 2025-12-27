@@ -11,7 +11,10 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PublicPetController;
 use App\Http\Controllers\Api\PublicProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\BoardingReservationController;
+use App\Http\Controllers\Api\Admin\BoardingReservationAdminController;
+use App\Http\Controllers\Api\Admin\BoardingServiceController;
+use App\Models\BoardingService;
 use Illuminate\Support\Facades\Route;
 
 
@@ -43,15 +46,27 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::apiResource('adoption-applications', AdoptionApplicationController::class);
     Route::get('adoption-applications/pet/{petId}', [AdoptionApplicationController::class, 'petApplications']);
 
+    //orders
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/{order}', [OrderController::class, 'show']);
     Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus']);
     Route::delete('orders/{order}', [OrderController::class, 'destroy']);
+
+    //boarding
+    Route::apiResource('boarding-services', BoardingServiceController::class);
+
+    Route::get('boarding-reservations', [BoardingReservationAdminController::class, 'index']);
+    Route::get('boarding-reservations/{boardingReservation}', [BoardingReservationAdminController::class, 'show']);
+    Route::patch('boarding-reservations/{boardingReservation}/status', [BoardingReservationAdminController::class, 'updateStatus']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/email/resend-verification', [AuthController::class, 'resendVerificationEmail']);
+
+    Route::get('/boarding-services', [BoardingServiceController::class, 'index']);
+
+    Route::post('/boarding/quote', [BoardingReservationController::class, 'quote']);
 
     Route::prefix('/my')->group(function () {
         //my pets
@@ -81,6 +96,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::delete('/adoption-applications/{adoptionApplication}', [AdoptionApplicationController::class, 'destroy'])
             ->middleware('owner:adoptionApplication,user_id');
+
+        //my boarding reservations
+        Route::get('/boarding-reservations', [BoardingReservationController::class, 'index']);
+        Route::post('/boarding-reservations', [BoardingReservationController::class, 'store']);
+
+        Route::get('/boarding-reservations/{boardingReservation}', [BoardingReservationController::class, 'show'])
+            ->middleware('owner:boardingReservation,user_id');
+
+        Route::post('/boarding-reservations/{boardingReservation}/cancel', [BoardingReservationController::class, 'cancel'])
+            ->middleware('owner:boardingReservation,user_id');
     });
 
 

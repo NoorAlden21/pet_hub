@@ -120,4 +120,28 @@ return [
         'cannot_cancel'     => 'Only pending orders can be cancelled.',
         'insufficient_stock' => 'The requested quantity is not available in stock.',
     ],
+
+    /* 
+    |--------------------------------------------------------------------------
+    | Boarding Service
+    |--------------------------------------------------------------------------
+    */
+
+    'boarding_service' => [
+        'created'   => 'Boarding service created successfully.',
+        'updated'   => 'Boarding service updated successfully.',
+        'deleted'   => 'Boarding service deleted successfully.',
+        'not_found' => 'Boarding service not found.',
+    ],
+
+    /* 
+    |--------------------------------------------------------------------------
+    | Boarding Reservations
+    |--------------------------------------------------------------------------
+    */
+
+    'boarding_reservations' => [
+        'cannot_cancel' => 'This reservation cannot be cancelled in its current status.',
+        'cannot_change_status' => 'Cannot change status of a cancelled or completed reservation.',
+    ],
 ];

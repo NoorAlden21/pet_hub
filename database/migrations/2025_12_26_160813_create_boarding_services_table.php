@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('boarding_services', function (Blueprint $table) {
             $table->id();
+            $table->string('name_en');
+            $table->string('name_ar');
+            $table->decimal('price', 18, 2)->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

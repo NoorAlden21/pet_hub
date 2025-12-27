@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             PetTypeSeeder::class,
             PetBreedSeeder::class,
             PetSeeder::class,
+            BoardingServicesSeeder::class,
         ]);
     }
 }
