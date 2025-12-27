@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Schema;
 
 class RoleSeeder extends Seeder
 {
@@ -16,26 +16,30 @@ class RoleSeeder extends Seeder
         Role::firstOrCreate(['name' => 'admin']);
         Role::firstOrCreate(['name' => 'user']);
 
+        $nameField = Schema::hasColumn('users', 'full_name') ? 'full_name' : 'name';
 
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('password'),
-        ]);
-
+        $admin = User::updateOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                $nameField => 'admin',
+                'password' => Hash::make('password'),
+            ]
+        );
         $admin->assignRole('admin');
-        $token = $admin->createToken('api')->plainTextToken;
+        $adminToken = $admin->createToken('api')->plainTextToken;
 
-        $user = User::create([
-            'name' => 'user',
-            'email' => "user@user.com",
-            'password' => Hash::make('password')
-        ]);
-
+        $user = User::updateOrCreate(
+            ['email' => 'user@user.com'],
+            [
+                $nameField => 'user',
+                'password' => Hash::make('password'),
+            ]
+        );
+        $user->assignRole('user');
         $userToken = $user->createToken('api')->plainTextToken;
 
         Log::channel('tokens')->info("===================== NEW TOKENS =====================");
-        Log::channel('tokens')->info("Admin ID: {$admin->id}, Token: {$token}");
-        Log::channel('tokens')->info("User ID: {$user->id}, Token: {$userToken}");
+        Log::channel('tokens')->info("Admin ID: {$admin->id}, Token: {$adminToken}");
+        Log::channel('tokens')->info("User  ID: {$user->id}, Token: {$userToken}");
     }
 }

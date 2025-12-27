@@ -17,7 +17,7 @@ class PetTypeSeeder extends Seeder
         ];
 
         foreach ($types as $type) {
-            PetType::create($type);
+            PetType::updateOrCreate(['name_en' => $type['name_en']], $type);
         }
     }
 }
