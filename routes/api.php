@@ -60,12 +60,11 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::patch('boarding-reservations/{boardingReservation}/status', [BoardingReservationAdminController::class, 'updateStatus']);
 });
 
+Route::get('/boarding-services', [BoardingServiceController::class, 'index']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/email/resend-verification', [AuthController::class, 'resendVerificationEmail']);
-
-    Route::get('/boarding-services', [BoardingServiceController::class, 'index']);
-
     Route::post('/boarding/quote', [BoardingReservationController::class, 'quote']);
 
     Route::prefix('/my')->group(function () {
