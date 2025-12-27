@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\PublicProductController;
 use App\Http\Controllers\Api\BoardingReservationController;
 use App\Http\Controllers\Api\Admin\BoardingReservationAdminController;
 use App\Http\Controllers\Api\Admin\BoardingServiceController;
+use App\Http\Controllers\Api\UserNotificationController;
 use App\Models\BoardingService;
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +66,14 @@ Route::get('/boarding-services', [BoardingServiceController::class, 'index']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/email/resend-verification', [AuthController::class, 'resendVerificationEmail']);
+
+    //common endpoints
+    //notifications
+    Route::get('/notifications', [UserNotificationController::class, 'index']);
+    Route::post('/notifications/{id}/read', [UserNotificationController::class, 'markAsRead']);
+    Route::post('/notifications/read-all', [UserNotificationController::class, 'markAllAsRead']);
+    Route::get('/notifications/unread-count', [UserNotificationController::class, 'unreadCount']);
+
     Route::post('/boarding/quote', [BoardingReservationController::class, 'quote']);
 
     Route::prefix('/my')->group(function () {

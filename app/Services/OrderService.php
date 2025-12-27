@@ -13,6 +13,12 @@ use Illuminate\Validation\ValidationException;
 
 class OrderService
 {
+    protected UserNotificationsService $notificationService;
+    public function __construct(UserNotificationsService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
+
     public function indexFor(User $user, int $perPage = 15)
     {
         $query = Order::with(['items.product.coverImage', 'user'])
@@ -51,10 +57,7 @@ class OrderService
             $total = 0;
 
             foreach ($cart->items as $item) {
-
-                $product = Product::where('id', $item->product_id)
-                    ->lockForUpdate()
-                    ->first();
+                $product = Product::where('id', $item->product_id)->lockForUpdate()->first();
 
                 if (!$product) {
                     throw ValidationException::withMessages([
@@ -65,8 +68,7 @@ class OrderService
                 if ($product->stock_quantity < $item->quantity) {
                     throw ValidationException::withMessages([
                         'cart' => [
-                            "Not enough stock for product {$product->name}. " .
-                                "Requested {$item->quantity}, available {$product->stock_quantity}."
+                            "Not enough stock for product {$product->name}. Requested {$item->quantity}, available {$product->stock_quantity}."
                         ],
                     ]);
                 }
@@ -83,7 +85,6 @@ class OrderService
                     'line_total' => $lineTotal,
                 ]);
 
-
                 $product->decrement('stock_quantity', $item->quantity);
             }
 
@@ -92,7 +93,17 @@ class OrderService
             $cart->items()->delete();
             $cart->update(['total' => 0]);
 
-            return $order->load(['items.product', 'user']);
+            $this->notificationService->notifyAdmins(
+                'order_placed',
+                __('notifications.order_placed_title'),
+                __('notifications.order_placed_body', [
+                    'order_number' => $order->id,
+                    'amount' => number_format((float)$order->total, 2, '.', ''),
+                ]),
+                ['order_id' => $order->id, 'status' => $order->status]
+            );
+
+            return $order->load(['items.product.coverImage', 'user']);
         });
     }
 
@@ -101,20 +112,49 @@ class OrderService
     {
         $order->update(['status' => $status]);
 
-        return $order->fresh()->load(['items.product', 'user']);
+        $key = match ($status) {
+            'confirmed'   => 'order_confirmed',
+            'in_progress' => 'order_in_progress',
+            'completed'   => 'order_completed',
+            'cancelled'   => 'order_cancelled',
+            default       => null,
+        };
+
+        if ($key) {
+            $this->notificationService->notifyUser(
+                $order->user,
+                $key,
+                __("notifications.{$key}_title"),
+                __("notifications.{$key}_body", ['order_number' => $order->id]),
+                ['order_id' => $order->id, 'status' => $status]
+            );
+        }
+
+        return $order->fresh()->load(['items.product.coverImage', 'user']);
     }
+
 
     public function cancel(Order $order): Order
     {
-        if ($order->status !== 'pending') {
-            throw ValidationException::withMessages([
-                'status' => ['Only pending orders can be cancelled.'],
-            ]);
-        }
+        return DB::transaction(function () use ($order) {
 
-        $order->update(['status' => 'cancelled']);
+            if ($order->status !== 'pending') {
+                throw ValidationException::withMessages([
+                    'status' => ['Only pending orders can be cancelled.'],
+                ]);
+            }
 
-        return $order->fresh()->load(['items.product', 'user']);
+            $order->update(['status' => 'cancelled']);
+
+            $this->notificationService->notifyAdmins(
+                'order_cancelled',
+                __('notifications.order_cancelled_title'),
+                __('notifications.order_cancelled_body', ['order_number' => $order->id]),
+                ['order_id' => $order->id, 'status' => 'cancelled']
+            );
+
+            return $order->fresh()->load(['items.product.coverImage', 'user']);
+        });
     }
 
     public function delete(Order $order): void

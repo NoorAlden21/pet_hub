@@ -132,6 +132,7 @@ return [
         'updated'   => 'Boarding service updated successfully.',
         'deleted'   => 'Boarding service deleted successfully.',
         'not_found' => 'Boarding service not found.',
+        'invalid_services' => 'One or more selected services are invalid or inactive.',
     ],
 
     /* 
