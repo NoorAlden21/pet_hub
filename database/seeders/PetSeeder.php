@@ -51,7 +51,7 @@ class PetSeeder extends Seeder
 
         for ($i = 1; $i <= $totalPets; $i++) {
             $breed = $breeds->random();
-            $owner = $users->random();
+            $owner = User::find(1);
 
             $baseName = $names[($i - 1) % count($names)];
             $petName = $baseName . " {$i}"; // keeps name unique-ish
@@ -64,7 +64,7 @@ class PetSeeder extends Seeder
                 'gender'        => rand(0, 1) ? 'male' : 'female',
                 'description'   => $descriptions[array_rand($descriptions)],
                 'date_of_birth' => now()->subMonths(rand(3, 120)),
-                'is_adoptable'  => rand(0, 1),
+                'is_adoptable'  => 1,
             ]);
         }
     }

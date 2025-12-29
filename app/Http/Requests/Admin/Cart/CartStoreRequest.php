@@ -23,7 +23,7 @@ class CartStoreRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'exists:users,id'],
-            'total' => ['required', 'numeric'],
+            'total' => ['required', 'numeric', 'min:0'],
         ];
     }
 }

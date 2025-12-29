@@ -73,6 +73,12 @@ class AdoptionApplicationService
 
             $status = (string) $application->status;
 
+            if ($status === 'approved') {
+                $application->pet->update(['is_adoptable' => false]);
+                $application->pet->owner_id = $application->user_id;
+                $application->pet->save();
+            }
+
             // ✅ اختر نوع الإشعار حسب الحالة
             $notifKey = match ($status) {
                 'approved' => 'adoption_application_approved',

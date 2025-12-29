@@ -23,7 +23,7 @@ class CartUpdateRequest extends FormRequest
     {
         return [
             'user_id' => ['sometimes', 'exists:users,id'],
-            'total' => ['sometimes', 'numeric'],
+            'total' => ['sometimes', 'numeric', 'min:0'],
         ];
     }
 }
