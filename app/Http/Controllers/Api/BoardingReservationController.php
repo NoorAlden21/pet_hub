@@ -43,7 +43,7 @@ class BoardingReservationController extends Controller
     // GET /api/my/boarding-reservations/{boardingReservation}
     public function show(BoardingReservation $boardingReservation)
     {
-        $boardingReservation->load('services');
+        $boardingReservation = $this->service->getDetails($boardingReservation);
         return new BoardingReservationResource($boardingReservation);
     }
 

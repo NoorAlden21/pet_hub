@@ -12,7 +12,13 @@ class BoardingReservationResource extends JsonResource
         return [
             'id' => $this->id,
 
-            'user_id' => $this->user_id,
+            'user' => $this->whenLoaded('user', function () {
+                return $this->user ? [
+                    'id' => $this->user->id,
+                    'name' => $this->user->name,
+                    'email' => $this->user->email,
+                ] : null;
+            }),
             'pet_type_id' => $this->pet_type_id,
             'pet_type' => $this->whenLoaded('petType', function () {
                 return $this->petType ? [
@@ -21,6 +27,12 @@ class BoardingReservationResource extends JsonResource
                 ] : null;
             }),
             'pet_breed_id' => $this->pet_breed_id,
+            'pet_breed' => $this->whenLoaded('petBreed', function () {
+                return $this->petBreed ? [
+                    'id' => $this->petBreed->id,
+                    'name' => $this->petBreed->name,
+                ] : null;
+            }),
             'age_months' => $this->age_months,
 
             'start_at' => $this->start_at?->toISOString(),

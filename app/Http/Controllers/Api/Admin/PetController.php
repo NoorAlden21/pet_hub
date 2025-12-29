@@ -28,17 +28,6 @@ class PetController extends Controller
         return PetResource::collection($pets);
     }
 
-    public function myPets(Request $request)
-    {
-        $user = $request->user();
-
-        $perPage = $request->integer('per_page', 15);
-
-        $pets = $this->petService->myPets($user, $perPage);
-
-        return PetResource::collection($pets);
-    }
-
     public function store(PetStoreRequest $request)
     {
         $user = $request->user();

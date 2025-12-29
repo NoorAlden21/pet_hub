@@ -21,7 +21,7 @@ class BoardingReservationAdminController extends Controller
 
     public function show(BoardingReservation $boardingReservation)
     {
-        $boardingReservation->load('services');
+        $boardingReservation = $this->service->getDetails($boardingReservation);
         return new BoardingReservationResource($boardingReservation);
     }
 

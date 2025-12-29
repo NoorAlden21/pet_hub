@@ -37,8 +37,17 @@ Route::get('/pet-types', [PetTypeController::class, 'index']);
 Route::get('/pet-breeds', [PetBreedController::class, 'index']);
 Route::get('/product-categories', [ProductCategoryController::class, 'index']);
 
+
 Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(function () {
     Route::apiResource('pet-types', PetTypeController::class);
+
+    //localhost/api/admin
+    // Route::get('pet-types', [PetTypeController::class, 'index']);
+    // Route::post('pet-types', [PetTypeController::class, 'store']);
+    // Route::get('pet-types/{petType}', [PetTypeController::class, 'show']);
+    // Route::patch('pet-types/{petType}', [PetTypeController::class, 'update']);
+    // Route::delete('pet-types/{petType}', [PetTypeController::class, 'destroy']);
+
     Route::apiResource('pet-breeds', PetBreedController::class);
     Route::apiResource('pets', PetController::class);
     Route::apiResource('product-categories', ProductCategoryController::class);
@@ -53,7 +62,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus']);
     Route::delete('orders/{order}', [OrderController::class, 'destroy']);
 
-    //boarding
+    //boarding|\
     Route::apiResource('boarding-services', BoardingServiceController::class);
 
     Route::get('boarding-reservations', [BoardingReservationAdminController::class, 'index']);

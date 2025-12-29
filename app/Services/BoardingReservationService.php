@@ -20,12 +20,13 @@ class BoardingReservationService
     {
         return BoardingReservation::where('user_id', $user->id)
             ->latest()
+            ->with(['petType'])
             ->get();
     }
 
     public function adminList()
     {
-        return BoardingReservation::latest()->get();
+        return BoardingReservation::with(['user', 'petType'])->latest()->get();
     }
 
     public function quote(array $data): array
@@ -121,6 +122,10 @@ class BoardingReservationService
         });
     }
 
+    public function getDetails(BoardingReservation $reservation): BoardingReservation
+    {
+        return $reservation->load(['user', 'petType', 'petBreed', 'services']);
+    }
 
     public function cancel(BoardingReservation $reservation): BoardingReservation
     {

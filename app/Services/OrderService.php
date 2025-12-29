@@ -57,7 +57,7 @@ class OrderService
             $total = 0;
 
             foreach ($cart->items as $item) {
-                $product = Product::where('id', $item->product_id)->lockForUpdate()->first();
+                $product = Product::where('id', $item->product_id)->first();
 
                 if (!$product) {
                     throw ValidationException::withMessages([

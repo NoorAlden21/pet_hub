@@ -19,9 +19,11 @@ class CartService
         )->load('items.product.coverImage');
     }
 
-    public function addProduct(User $user, int $productId, int $quantity = 1)
+    public function addProduct(User $user, array $data)
     {
-        return DB::transaction(function () use ($user, $productId, $quantity) {
+        return DB::transaction(function () use ($user, $data) {
+            $productId = $data['product_id'];
+            $quantity = $data['quantity'];
             $product = Product::findOrFail($productId);
 
             $cart = $this->getUserCart($user);
