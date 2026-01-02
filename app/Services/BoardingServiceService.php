@@ -7,12 +7,13 @@ use App\Models\User;
 
 class BoardingServiceService
 {
-    public function list(User $user)
+    public function list(?User $user)
     {
-        if ($user->hasRole('admin')) {
-            return BoardingService::all();
+        if (!$user || !$user->hasRole('admin')) {
+            return BoardingService::where('is_active', true)->get();
         }
-        return BoardingService::where('is_active', true)->get();
+
+        return BoardingService::all();
     }
 
     public function create(array $data): BoardingService
