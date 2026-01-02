@@ -38,6 +38,7 @@ Route::get('/pet-breeds', [PetBreedController::class, 'index']);
 Route::get('/product-categories', [ProductCategoryController::class, 'index']);
 
 
+//admin routes
 Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(function () {
     Route::apiResource('pet-types', PetTypeController::class);
 
@@ -72,17 +73,22 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
 
 Route::get('/boarding-services', [BoardingServiceController::class, 'index']);
 
+
+//user routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/email/resend-verification', [AuthController::class, 'resendVerificationEmail']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
-    //common endpoints
+    //================= user + admin routes =================//
     //notifications
     Route::get('/notifications', [UserNotificationController::class, 'index']);
     Route::post('/notifications/{id}/read', [UserNotificationController::class, 'markAsRead']);
     Route::post('/notifications/read-all', [UserNotificationController::class, 'markAllAsRead']);
     Route::get('/notifications/unread-count', [UserNotificationController::class, 'unreadCount']);
+    //================= user + admin routes=================//
 
+    //
     Route::post('/boarding/quote', [BoardingReservationController::class, 'quote']);
 
     Route::prefix('/my')->group(function () {

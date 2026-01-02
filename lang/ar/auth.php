@@ -7,6 +7,7 @@ return [
     'invalid_code'     => 'كود التحقق غير صحيح.',
 
     'login_success'            => 'تم تسجيل الدخول بنجاح.',
+    'logout_success'           => 'تم تسجيل الخروج بنجاح.',
     'invalid_credentials'      => 'بيانات الاعتماد غير صحيحة.',
     'email_not_verified'       => 'يرجى تفعيل بريدك الإلكتروني قبل تسجيل الدخول.',
     'verification_email_resent' => 'A new verification code has been sent to your email.',

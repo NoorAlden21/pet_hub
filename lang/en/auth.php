@@ -7,6 +7,7 @@ return [
     'invalid_code'     => 'The verification code is incorrect.',
 
     'login_success'            => 'Logged in successfully.',
+    'logout_success'           => 'Logged out successfully.',
     'invalid_credentials'      => 'The provided credentials are incorrect.',
     'email_not_verified'       => 'Please verify your email address before logging in.',
     'verification_email_resent' => 'تم إرسال كود تفعيل جديد إلى بريدك الإلكتروني.',

@@ -72,6 +72,14 @@ class AuthService
         ];
     }
 
+    public function logout(User $user): void
+    {
+        $token = $user->currentAccessToken();
+        if ($token) {
+            $token->delete();
+        }
+    }
+
 
     public function verifyEmail(User $user, string $code): User
     {
