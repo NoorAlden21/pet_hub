@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
-            $table->foreignId('pet_type_id')->constrained('pet_types')->cascadeOnDelete();
+            $table->foreignId('pet_type_id')->constrained('pet_types')->nullOnDelete();
             $table->foreignId('pet_breed_id')->nullable()->constrained('pet_breeds')->nullOnDelete();
             $table->unsignedInteger('age_months')->nullable();
 

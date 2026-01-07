@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->foreignId('boarding_service_id')
                 ->constrained('boarding_services')
-                ->cascadeOnDelete();
+                ->nullOnDelete();
 
             $table->unsignedInteger('quantity')->default(1);
 
