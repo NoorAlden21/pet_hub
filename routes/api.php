@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AppointmentCategoryController;
 use App\Http\Controllers\Api\Admin\PetBreedController;
 use App\Http\Controllers\Api\Admin\PetController;
 use App\Http\Controllers\Api\Admin\PetTypeController;
@@ -16,6 +17,9 @@ use App\Http\Controllers\Api\Admin\BoardingReservationAdminController;
 use App\Http\Controllers\Api\Admin\BoardingServiceController;
 use App\Http\Controllers\Api\UserNotificationController;
 use App\Models\BoardingService;
+use App\Http\Controllers\Api\Admin\AppointmentCategoryController as AdminAppointmentCategoryController;
+use App\Http\Controllers\Api\Admin\AppointmentController as AdminAppointmentController;
+use App\Http\Controllers\Api\MyAppointmentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,6 +31,9 @@ Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
 Route::get('/pets', [PublicPetController::class, 'index']);
 Route::get('/pets/{pet}', [PublicPetController::class, 'show']);
+
+Route::get('/appointment-categories', [AppointmentCategoryController::class, 'index']);
+
 
 
 // products
@@ -69,6 +76,14 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::get('boarding-reservations', [BoardingReservationAdminController::class, 'index']);
     Route::get('boarding-reservations/{boardingReservation}', [BoardingReservationAdminController::class, 'show']);
     Route::patch('boarding-reservations/{boardingReservation}/status', [BoardingReservationAdminController::class, 'updateStatus']);
+
+    // appointments category
+    Route::apiResource('appointment-categories', AdminAppointmentCategoryController::class);
+
+    // appointments 
+    Route::get('appointments', [AdminAppointmentController::class, 'index']);
+    Route::get('appointments/{appointment}', [AdminAppointmentController::class, 'show']);
+    Route::patch('appointments/{appointment}/status', [AdminAppointmentController::class, 'updateStatus']);
 });
 
 Route::get('/boarding-services', [BoardingServiceController::class, 'index']);
@@ -129,6 +144,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('/boarding-reservations/{boardingReservation}/cancel', [BoardingReservationController::class, 'cancel'])
             ->middleware('owner:boardingReservation,user_id');
+
+        //my appointments
+
+        Route::get('/appointments', [MyAppointmentController::class, 'index']);
+        Route::post('/appointments', [MyAppointmentController::class, 'store']);
+
+        Route::get('/appointments/{appointment}', [MyAppointmentController::class, 'show'])
+            ->middleware('owner:appointment,user_id');
+
+        Route::post('/appointments/{appointment}/cancel', [MyAppointmentController::class, 'cancel'])
+            ->middleware('owner:appointment,user_id');
     });
 
 

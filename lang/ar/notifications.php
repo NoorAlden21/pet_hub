@@ -45,6 +45,26 @@ return [
 
     'adoption_application_rejected_title' => 'تم رفض طلب التبني',
     'adoption_application_rejected_body'  => 'للأسف، تم رفض طلب التبني الخاص بك.',
+
+    //apointment
+    'appointment_created_title' => 'طلب موعد جديد',
+    'appointment_created_body' => 'تم إنشاء طلب موعد جديد بتاريخ :date ضمن قسم :category.',
+
+    'appointment_cancelled_title' => 'تم إلغاء موعد',
+    'appointment_cancelled_body' => 'تم إلغاء الموعد رقم #:appointment_id.',
+
+    'appointment_approved_title' => 'تمت الموافقة على موعدك',
+    'appointment_approved_body' => 'تمت الموافقة على موعدك بتاريخ :date ضمن :category.',
+
+    'appointment_rejected_title' => 'تم رفض موعدك',
+    'appointment_rejected_body' => 'تم رفض موعدك بتاريخ :date. السبب: :reason',
+
+    'appointment_completed_title' => 'تم إكمال موعدك',
+    'appointment_completed_body' => 'تم إكمال موعدك بتاريخ :date ضمن :category.',
+
+    'appointment_missed_title' => 'موعد فائت',
+    'appointment_missed_body' => 'تم اعتبار موعدك بتاريخ :date ضمن :category كموعد فائت.',
+
 ];
 
 

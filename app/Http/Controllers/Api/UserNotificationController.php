@@ -16,7 +16,7 @@ class UserNotificationController extends Controller
         $user = $request->user();
 
         //$status = $request->query('status', 'all');
-        $perPage = (int) $request->query('per_page', 10);
+        $perPage = 10;
 
         $query = $user->notifications()->latest('created_at');
 
@@ -39,7 +39,9 @@ class UserNotificationController extends Controller
 
         $model = $user->notifications()->whereKey($notification)->firstOrFail();
 
-        $model->markAsRead();
+        $model->update([
+            'read_at' => now()
+        ]);
 
         return (new UserNotificationResource($model))->response();
     }

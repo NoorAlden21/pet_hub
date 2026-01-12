@@ -48,4 +48,25 @@ return [
 
     'adoption_application_rejected_title' => 'Adoption application rejected',
     'adoption_application_rejected_body'  => 'Unfortunately, your adoption application has been rejected.',
+
+    //appointment
+
+    'appointment_created_title' => 'New appointment request',
+    'appointment_created_body' => 'A new appointment request was created for :date in :category.',
+
+    'appointment_cancelled_title' => 'Appointment cancelled',
+    'appointment_cancelled_body' => 'Appointment #:appointment_id has been cancelled.',
+
+    'appointment_approved_title' => 'Appointment approved',
+    'appointment_approved_body' => 'Your appointment on :date in :category was approved.',
+
+    'appointment_rejected_title' => 'Appointment rejected',
+    'appointment_rejected_body' => 'Your appointment on :date was rejected. Reason: :reason',
+
+    'appointment_completed_title' => 'Appointment completed',
+    'appointment_completed_body' => 'Your appointment on :date in :category was completed.',
+
+    'appointment_missed_title' => 'Missed appointment',
+    'appointment_missed_body' => 'Your appointment on :date in :category was marked as missed.',
+
 ];

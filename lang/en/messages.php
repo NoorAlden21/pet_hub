@@ -145,4 +145,22 @@ return [
         'cannot_cancel' => 'This reservation cannot be cancelled in its current status.',
         'cannot_change_status' => 'Cannot change status of a cancelled or completed reservation.',
     ],
+
+    'appointment_category' => [
+        'created'   => 'Appointment category created successfully.',
+        'updated'   => 'Appointment category updated successfully.',
+        'deleted'   => 'Appointment category deleted successfully.',
+        'not_found' => 'Appointment category not found.',
+    ],
+
+    'appointment' => [
+        'created' => 'Appointment created successfully.',
+        'status_updated' => 'Appointment status updated successfully.',
+        'cancelled' => 'Appointment cancelled successfully.',
+        'cannot_cancel' => 'This appointment cannot be cancelled in its current status.',
+        'cannot_change_status' => 'This appointment status cannot be changed in its current status.',
+        'rejection_reason_required' => 'Rejection reason is required.',
+        'not_found' => 'Appointment not found.',
+    ],
+
 ];
