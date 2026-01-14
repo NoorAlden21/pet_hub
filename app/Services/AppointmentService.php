@@ -89,21 +89,16 @@ class AppointmentService
     {
         return DB::transaction(function () use ($appointment, $status, $rejectionReason) {
 
-            if ($status === 'approved' && $appointment->status !== 'pending') {
-                throw ValidationException::withMessages(['status' => [__('messages.appointment.cannot_change_status')]]);
+            if (($status === 'approved' || $status === 'rejected') && $appointment->status !== 'pending') {
+                throw ValidationException::withMessages([
+                    'status' => [__('messages.appointment.cannot_change_status')],
+                ]);
             }
 
-            if ($status === 'rejected') {
-                if ($appointment->status !== 'pending') {
-                    throw ValidationException::withMessages(['status' => [__('messages.appointment.cannot_change_status')]]);
-                }
-                // if (!$rejectionReason) {
-                //     throw ValidationException::withMessages(['rejection_reason' => [__('messages.appointment.rejection_reason_required')]]);
-                // }
-            }
-
-            if (in_array($status, ['completed', 'missed'], true) && $appointment->status !== 'approved') {
-                throw ValidationException::withMessages(['status' => [__('messages.appointment.cannot_change_status')]]);
+            if (($status === 'completed' || $status === 'missed') && $appointment->status !== 'approved') {
+                throw ValidationException::withMessages([
+                    'status' => [__('messages.appointment.cannot_change_status')],
+                ]);
             }
 
             $appointment->update([
@@ -120,20 +115,16 @@ class AppointmentService
             };
 
             if ($key) {
-                $payload = ['appointment_id' => $appointment->id, 'status' => $status];
-
-                $bodyParams = [
-                    'date' => $appointment->appointment_date->toDateString(),
-                    'category' => $appointment->category?->name ?? '',
-                    'reason' => $appointment->rejection_reason ?? '',
-                ];
-
                 $this->notificationService->notifyUser(
                     $appointment->user,
                     $key,
                     __("notifications.{$key}_title"),
-                    __("notifications.{$key}_body", $bodyParams),
-                    $payload
+                    __("notifications.{$key}_body", [
+                        'date' => $appointment->appointment_date->toDateString(),
+                        'category' => $appointment->category?->name ?? '',
+                        'reason' => $appointment->rejection_reason ?? '',
+                    ]),
+                    ['appointment_id' => $appointment->id, 'status' => $status]
                 );
             }
 
