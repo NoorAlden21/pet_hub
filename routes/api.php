@@ -34,8 +34,6 @@ Route::get('/pets/{pet}', [PublicPetController::class, 'show']);
 
 Route::get('/appointment-categories', [AppointmentCategoryController::class, 'index']);
 
-
-
 // products
 Route::get('/products', [PublicProductController::class, 'index']);
 Route::get('/products/{product}', [PublicProductController::class, 'show']);
@@ -70,7 +68,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(funct
     Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus']);
     Route::delete('orders/{order}', [OrderController::class, 'destroy']);
 
-    //boarding|\
+    //boarding
     Route::apiResource('boarding-services', BoardingServiceController::class);
 
     Route::get('boarding-reservations', [BoardingReservationAdminController::class, 'index']);

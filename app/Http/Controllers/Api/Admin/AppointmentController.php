@@ -17,26 +17,9 @@ class AppointmentController extends Controller
 
     public function index(Request $request)
     {
-        $query = Appointment::with(['petType', 'petBreed', 'category', 'user'])
-            ->orderByDesc('created_at');
+        $appointments = $this->service->indexFor($request->user());
 
-        // if ($status = $request->get('status')) {
-        //     $query->where('status', $status);
-        // }
-
-        // if ($categoryId = $request->get('appointment_category_id')) {
-        //     $query->where('appointment_category_id', $categoryId);
-        // }
-
-        // if ($from = $request->get('from')) {
-        //     $query->whereDate('appointment_date', '>=', $from);
-        // }
-
-        // if ($to = $request->get('to')) {
-        //     $query->whereDate('appointment_date', '<=', $to);
-        // }
-
-        return AppointmentResource::collection($query->paginate((int) $request->get('per_page', 15)));
+        return AppointmentResource::collection($appointments);
     }
 
     public function show(Appointment $appointment)
@@ -48,7 +31,7 @@ class AppointmentController extends Controller
     {
         $data = $request->validated();
 
-        $appointment = $this->service->updateStatus($appointment, $data['status'] ?? null, $data['rejection_reason'] ?? null);
+        $appointment = $this->service->updateStatus($appointment, $data['status'], $data['rejection_reason'] ?? null);
 
         return response()->json([
             'message' => __('messages.appointment.status_updated'),

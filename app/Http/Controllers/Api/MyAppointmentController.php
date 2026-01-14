@@ -17,10 +17,7 @@ class MyAppointmentController extends Controller
 
     public function index(Request $request)
     {
-        $appointments = Appointment::with(['petType', 'petBreed', 'category'])
-            ->where('user_id', $request->user()->id)
-            ->orderByDesc('created_at')
-            ->paginate((int) $request->get('per_page', 15));
+        $appointments = $this->service->indexFor($request->user());
 
         return AppointmentResource::collection($appointments);
     }
