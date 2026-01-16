@@ -50,9 +50,10 @@ class OrderController extends Controller
     {
         $data = $request->validate([
             'status' => ['required', 'string'],
+            'payment_status' => ['nullable', 'string', 'in:paid,unpaid']
         ]);
 
-        $order = $this->orderService->updateStatus($order, $data['status']);
+        $order = $this->orderService->updateStatus($order, $data['status'], $data['payment_status'] ?? null);
 
         return response()->json([
             'message' => __('messages.order.status_updated'),

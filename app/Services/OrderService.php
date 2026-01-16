@@ -108,9 +108,13 @@ class OrderService
     }
 
 
-    public function updateStatus(Order $order, string $status): Order
+    public function updateStatus(Order $order, string $status, ?string $payment_status = null): Order
     {
         $order->update(['status' => $status]);
+
+        if ($payment_status !== null) {
+            $order->update(['payment_status' => $payment_status]);
+        }
 
         $key = match ($status) {
             'confirmed'   => 'order_confirmed',

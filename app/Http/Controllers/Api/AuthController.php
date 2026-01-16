@@ -84,32 +84,4 @@ class AuthController extends Controller
             'message' => __('auth.verification_email_resent'),
         ]);
     }
-
-    // public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
-    // {
-    //     $this->authService->sendPasswordResetCode(
-    //         $request->validated()['email']
-    //     );
-
-    //     return response()->json([
-    //         'message' => __('auth.password_reset_code_sent'),
-    //     ]);
-    // }
-
-    // public function resetPassword(ResetPasswordRequest $request): JsonResponse
-    // {
-    //     $result = $this->authService->resetPassword(
-    //         $request->validated()['email'],
-    //         $request->validated()['code'],
-    //         $request->validated()['password'],
-    //     );
-
-    //     return response()->json([
-    //         'message' => __('auth.password_reset_success'),
-    //         'data'    => [
-    //             'user'  => new UserResource($result['user']),
-    //             'token' => $result['token'],
-    //         ],
-    //     ]);
-    // }
 }

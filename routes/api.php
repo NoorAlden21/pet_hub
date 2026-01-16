@@ -26,8 +26,6 @@ use Illuminate\Support\Facades\Route;
 // public
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
-Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
 Route::get('/pets', [PublicPetController::class, 'index']);
 Route::get('/pets/{pet}', [PublicPetController::class, 'show']);

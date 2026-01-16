@@ -68,7 +68,7 @@ class AdoptionApplicationService
     {
         return DB::transaction(function () use ($applicationId, $data) {
 
-            $application = AdoptionApplication::findOrFail($applicationId);
+            $application = AdoptionApplication::with(['user', 'pet'])->lockForUpdate()->findOrFail($applicationId);
             $application->update($data);
 
             $status = (string) $application->status;
@@ -77,6 +77,31 @@ class AdoptionApplicationService
                 $application->pet->update(['is_adoptable' => false]);
                 $application->pet->owner_id = $application->user_id;
                 $application->pet->save();
+
+                //reject the other adoptionApplication for this specific pet and notify thier users
+                $otherApplications = AdoptionApplication::with('user')
+                    ->where('pet_id', $application->pet_id)
+                    ->where('id', '!=', $application->id)
+                    ->where('status', '!=', 'rejected')
+                    ->get();
+
+                foreach ($otherApplications as $otherApp) {
+                    $otherApp->update(['status' => 'rejected']);
+
+                    $this->notificationService->notifyUser(
+                        $otherApp->user,
+                        'adoption_application_rejected',
+                        __("notifications.adoption_application_rejected_title"),
+                        __("notifications.adoption_application_rejected_body", [
+                            'status' => __('notifications.status_rejected')
+                        ]),
+                        [
+                            'application_id' => $otherApp->id,
+                            'pet_id' => $otherApp->pet_id,
+                            'status' => 'rejected',
+                        ]
+                    );
+                }
             }
 
             // ✅ اختر نوع الإشعار حسب الحالة

@@ -53,6 +53,6 @@ class Pet extends Model
 
     public function scopeOwnedBy($query, int $userId)
     {
-        return $query->where('user_id', $userId);
+        return $query->where('owner_id', $userId);
     }
 }
