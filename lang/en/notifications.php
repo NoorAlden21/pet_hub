@@ -12,7 +12,7 @@ return [
     'boarding_reservation_rejected_body'   => 'The boarding reservation for pet :pet_name has been rejected.',
 
     'boarding_reservation_cancelled_title' => 'Boarding reservation cancelled',
-    'boarding_reservation_cancelled_body'  => 'The boarding reservation for pet :pet_name has been cancelled.',
+    'boarding_reservation_cancelled_body'  => 'a boarding reservation has been cancelled.',
 
     'boarding_reservation_completed_title' => 'Boarding completed',
     'boarding_reservation_completed_body'  => 'The boarding for pet :pet_name has been completed. We hope they enjoyed their stay with us!',

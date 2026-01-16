@@ -23,7 +23,7 @@ class BoardingQuoteRequest extends FormRequest
 
             'services' => 'nullable|array',
             'services.*.id' => 'required|exists:boarding_services,id',
-            'services.*.quantity' => 'nullable|integer|min:1',
+            //'services.*.quantity' => 'nullable|integer|min:1',
         ];
     }
 }

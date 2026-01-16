@@ -37,8 +37,6 @@ class BoardingReservation extends Model
 
     public function services()
     {
-        return $this->belongsToMany(BoardingService::class, 'boarding_reservation_services')
-            ->withPivot(['quantity'])
-            ->withTimestamps();
+        return $this->belongsToMany(BoardingService::class, 'boarding_reservation_services');
     }
 }

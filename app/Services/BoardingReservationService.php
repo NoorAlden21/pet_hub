@@ -64,6 +64,7 @@ class BoardingReservationService
 
             $quote = $this->quote($data);
 
+            //BoardingReservation::create($data);
             $reservation = BoardingReservation::create([
                 'user_id' => $user->id,
                 'pet_type_id' => (int) $data['pet_type_id'],
@@ -131,7 +132,7 @@ class BoardingReservationService
     {
         return DB::transaction(function () use ($reservation) {
 
-            if (!in_array($reservation->status, ['pending', 'confirmed'])) {
+            if (!in_array($reservation->status, ['pending'])) {
                 throw ValidationException::withMessages([
                     'status' => __('messages.boarding_reservations.cannot_cancel'),
                 ]);
@@ -139,13 +140,10 @@ class BoardingReservationService
 
             $reservation->update(['status' => 'cancelled']);
 
-            $reservation->loadMissing(['petType', 'petBreed', 'user']);
-            $petLabel = $reservation->petBreed?->name ?? $reservation->petType?->name ?? 'Pet';
-
             $this->notificationService->notifyAdmins(
                 'boarding_reservation_cancelled',
                 __('notifications.boarding_reservation_cancelled_title'),
-                __('notifications.boarding_reservation_cancelled_body', ['pet_name' => $petLabel]),
+                __('notifications.boarding_reservation_cancelled_body'),
                 ['reservation_id' => $reservation->id, 'status' => 'cancelled']
             );
 
