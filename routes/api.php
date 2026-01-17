@@ -40,6 +40,10 @@ Route::get('/pet-types', [PetTypeController::class, 'index']);
 Route::get('/pet-breeds', [PetBreedController::class, 'index']);
 Route::get('/product-categories', [ProductCategoryController::class, 'index']);
 
+//boarding
+
+Route::post('/boarding/quote', [BoardingReservationController::class, 'quote']);
+
 
 //admin routes
 Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/admin')->group(function () {
@@ -98,9 +102,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/notifications/read-all', [UserNotificationController::class, 'markAllAsRead']);
     Route::get('/notifications/unread-count', [UserNotificationController::class, 'unreadCount']);
     //================= user + admin routes=================//
-
-    //
-    Route::post('/boarding/quote', [BoardingReservationController::class, 'quote']);
 
     Route::prefix('/my')->group(function () {
         //my pets
