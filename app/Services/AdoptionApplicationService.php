@@ -6,6 +6,7 @@ use App\Models\AdoptionApplication;
 use App\Models\User;
 use App\Models\UserNotification;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class AdoptionApplicationService
 {
@@ -135,6 +136,32 @@ class AdoptionApplicationService
 
             return $application;
         });
+    }
+
+    public function cancelApplication($applicationId)
+    {
+        $application = AdoptionApplication::findOrFail($applicationId);
+
+        //only allow cancellition if the status is pending
+        if ($application->status !== 'pending') {
+            throw ValidationException::withMessages([
+                'status' => [__('messages.adoption_application.cannot_cancel')],
+            ]);
+        }
+
+        $application->update(['status' => 'cancelled']);
+
+        $this->notificationService->notifyAdmins(
+            'adoption_application_cancelled',
+            __("notifications.adoption_application_cancelled_title"),
+            __("notifications.adoption_application_cancelled_body"),
+            [
+                'application_id' => $application->id,
+                'pet_id' => $application->pet_id,
+            ]
+        );
+
+        return $application;
     }
 
 

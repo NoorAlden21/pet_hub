@@ -37,9 +37,6 @@ return [
     'adoption_application_submitted_title'       => 'New adoption application submitted',
     'adoption_application_submitted_body'        => 'User :user submitted an adoption application.',
 
-    'adoption_application_status_updated_title'  => 'Adoption application status updated',
-    'adoption_application_status_updated_body'   => 'Your adoption application status has been updated to: :status.',
-
     'adoption_application_status_updated_title' => 'Adoption application status updated',
     'adoption_application_status_updated_body'  => 'Your adoption application status has been updated to: :status.',
 
@@ -48,6 +45,9 @@ return [
 
     'adoption_application_rejected_title' => 'Adoption application rejected',
     'adoption_application_rejected_body'  => 'Unfortunately, your adoption application has been rejected.',
+
+    'adoption_application_cancelled_title' => 'Adoption application cancelled',
+    'adoption_application_cancelled_body'  => 'A user cancelled an adoption application (Application #: :application_id) for Pet #: :pet_id.',
 
     //appointment
 

@@ -128,7 +128,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/adoption-applications/{adoptionApplication}', [AdoptionApplicationController::class, 'show'])
             ->middleware('owner:adoptionApplication,user_id');
 
-        //Route::patch('/adoption-applications/{adoptionApplication}', [])
+        Route::patch('/adoption-applications/{adoptionApplication}/cancel', [AdoptionApplicationController::class, 'cancel'])
+            ->middleware('owner:adoptionApplication,user_id');
 
         //my boarding reservations
         Route::get('/boarding-reservations', [BoardingReservationController::class, 'index']);

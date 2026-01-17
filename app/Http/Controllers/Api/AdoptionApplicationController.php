@@ -61,6 +61,13 @@ class AdoptionApplicationController extends Controller
         return new AdoptionApplicationResource($application);
     }
 
+    public function cancel(AdoptionApplication $adoptionApplication)
+    {
+        $application = $this->adoptionApplicationService->cancelApplication($adoptionApplication->id);
+
+        return new AdoptionApplicationResource($application);
+    }
+
     public function destroy(AdoptionApplication $adoptionApplication)
     {
         $this->adoptionApplicationService->deleteApplication($adoptionApplication->id);

@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('adoption_applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pet_id')->constrained()->nullOnDelete();
-            $table->foreignId('user_id')->constrained()->nullOnDelete();
+            $table->foreignId('pet_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->text('motivation');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'rejected', 'cancelled'])->default('pending');
             $table->timestamps();
-
-            $table->unique(['pet_id', 'user_id']);
         });
     }
 

@@ -163,4 +163,14 @@ return [
         'not_found' => 'Appointment not found.',
     ],
 
+    /* 
+    |--------------------------------------------------------------------------
+    | Adoption Applications
+    |--------------------------------------------------------------------------
+    */
+
+    'adoption_application' => [
+        'cannot_cancel' => 'You can’t cancel the adoption application in its current status.',
+    ],
+
 ];

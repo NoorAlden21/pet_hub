@@ -46,6 +46,10 @@ return [
     'adoption_application_rejected_title' => 'تم رفض طلب التبني',
     'adoption_application_rejected_body'  => 'للأسف، تم رفض طلب التبني الخاص بك.',
 
+    'adoption_application_cancelled_title' => 'تم إلغاء طلب التبني',
+    'adoption_application_cancelled_body'  => 'قام المستخدم بإلغاء طلب التبني (رقم الطلب: :application_id) للحيوان رقم: :pet_id.',
+
+
     //apointment
     'appointment_created_title' => 'طلب موعد جديد',
     'appointment_created_body' => 'تم إنشاء طلب موعد جديد بتاريخ :date ضمن قسم :category.',
