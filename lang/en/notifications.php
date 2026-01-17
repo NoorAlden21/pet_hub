@@ -30,6 +30,9 @@ return [
     'order_completed_title'    => 'Order completed',
     'order_completed_body'     => 'Your order #:order_number has been completed.',
 
+    'order_rejected_title'    => 'Order rejected',
+    'order_rejected_body'     => 'Your order #:order_number has been rejected.',
+
     'order_cancelled_title'    => 'Order cancelled',
     'order_cancelled_body'     => 'Your order #:order_number has been cancelled.',
 

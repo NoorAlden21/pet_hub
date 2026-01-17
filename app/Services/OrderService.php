@@ -120,6 +120,7 @@ class OrderService
             'confirmed'   => 'order_confirmed',
             'in_progress' => 'order_in_progress',
             'completed'   => 'order_completed',
+            'rejected'    => 'order_rejected',
             'cancelled'   => 'order_cancelled',
             default       => null,
         };

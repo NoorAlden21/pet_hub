@@ -30,6 +30,9 @@ return [
     'order_completed_title'    => 'تم إكمال الطلب',
     'order_completed_body'     => 'تم إكمال طلبك برقم #:order_number.',
 
+    'order_rejected_title'    => 'تم رفض الطلب',
+    'order_rejected_body'     => 'تم رفض طلبك برقم #:order_number.',
+
     'order_cancelled_title'    => 'تم إلغاء الطلب',
     'order_cancelled_body'     => 'تم إلغاء الطلب برقم #:order_number.',
 

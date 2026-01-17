@@ -21,9 +21,8 @@ return new class extends Migration
 
             $table->decimal('total', 10, 2)->default(0);
 
-            $table->enum('status', ['pending', 'in_progress', 'completed', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'in_progress', 'rejected', 'completed', 'cancelled'])->default('pending');
 
-            // حالة الدفع لو حابب
             $table->enum('payment_status', ['unpaid', 'paid', 'refunded'])->default('unpaid');
 
             $table->timestamps();
